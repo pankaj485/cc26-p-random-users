@@ -82,15 +82,58 @@ function App() {
   }, []);
 
   return (
-    <div className="users-data  grid grid-cols-1  gap-y-2 m-4 ">
+    <div className="users-data grid grid-cols-1 sm:grid-cols-2 gap-6 m-4 max-w-300 mx-auto">
       {users?.map((user, index) => {
         return (
-          <div key={index} className="bg-slate-200 border-blue-950 p-2">
-            <h1>
-              {`${user.name.title}. ${user.name.first} ${user.name.last}`}
-            </h1>
+          <div
+            key={index}
+            className="min-w-75 bg-white shadow-lg rounded-lg p-6 hover:shadow-xl transition"
+          >
+            {/* Profile */}
+            <div className="flex items-center gap-4">
+              <img
+                src={user.picture.large}
+                alt="profile"
+                className="w-16 h-16 rounded-full object-cover"
+              />
+              <div>
+                <h2 className="text-lg font-semibold">
+                  {user.name.title} {user.name.first} {user.name.last}
+                </h2>
+                <p className="text-sm text-gray-500">@{user.login.username}</p>
+              </div>
+            </div>
 
-            <h3> {user.email} </h3>
+            {/* Divider */}
+            {/* <div className="my-4 border-t" /> */}
+
+            {/* Info */}
+            <div className="space-y-2 text-sm text-gray-700 mt-4">
+              <p>
+                <span className="font-medium">Email:</span> {user.email}
+              </p>
+              <p>
+                <span className="font-medium">Phone:</span> {user.phone}
+              </p>
+              <p>
+                <span className="font-medium">Age:</span> {user.dob.age}
+              </p>
+              <p>
+                <span className="font-medium">Location:</span>{" "}
+                {user.location.city}, {user.location.state},{" "}
+                {user.location.country}
+              </p>
+            </div>
+
+            {/* Footer */}
+            <div className="mt-4 flex justify-between items-center">
+              <span className="text-xs text-gray-400">
+                Joined: {new Date(user.registered.date).toLocaleDateString()}
+              </span>
+              <span className="text-xs font-medium bg-gray-100 px-2 py-1 rounded">
+                {user.nat}
+              </span>
+            </div>
           </div>
         );
       })}
